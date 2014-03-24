@@ -1,3 +1,5 @@
+open base_transmission_model
+
 abstract sig Vehicle {}
 
 sig Car extends Vehicle{
@@ -6,16 +8,16 @@ sig Car extends Vehicle{
 }
 
 sig Engine {}
-sig Transmission {}
 
-pred show (c: Car) {
-  p[]
+pred show (g: Gear) {
+  SingleCar[]
 }
 
-pred p() {
-  Car.drives = Transmission
-	Car.powered = Engine
+pred SingleCar() {
+  	Car.drives = Transmission
+  	Car.powered = Engine
+	one Car
 }
 
 
-run show for 3
+run show
