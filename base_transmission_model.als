@@ -92,12 +92,7 @@ one sig Transmission {
 }
 
 fact connected {
-	//all g: Gear | Gear in g.^nextGear
-	//all g: Gear | Gear in g.^previousGear
-	//Every Gear has a previous and nextgear, and is reachable through
-	//those relations somehow.
-
-	//Note* Fact is too strong, prevents gears from having cycles if topped or bottomed out.
+	all t: Transmission, g: Gear | g in t.gears
 }
 
 fact limitedGearsBySchedule {
@@ -126,7 +121,7 @@ fun shiftUp [t: Transmission, g: Gear] : set Gear {
 }
 
 assert everyShiftUpDefined {
-	all t: Transmission, g: Gear | t.gears in shiftUp[t,g] && show
+	all t: Transmission, g: Gear | g in shiftUp[t,g] && show || g in t.gears
 }
 
 pred show {
